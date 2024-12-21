@@ -38,4 +38,19 @@ export class AccountRepositoryMemory implements AccountRepository {
       account.avatar
     );
   }
+
+  async findByAccountId(accountId: string): Promise<Account | undefined> {
+    const account = this.accounts.find(
+      (account) => account.accountId === accountId
+    );
+    if (!account) return undefined;
+    return Account.restore(
+      account.accountId,
+      account.firstName,
+      account.lastName,
+      account.email,
+      account.password,
+      account.avatar
+    );
+  }
 }

@@ -2,11 +2,15 @@ import "dotenv/config";
 
 import express, { Router } from "express";
 import { AccountRepositoryMemory } from "../test/account/infra/repository/AccountRepositoryMemory";
+import { EventRepositoryMemory } from "../test/event/infra/repository/EventRepositoryMemory";
 import { Authentication } from "./account/application/usecase/Authentication";
 import { CreateAccount } from "./account/application/usecase/CreateAccount";
 import { JWTAuth } from "./account/infra/auth/AuthProvider";
 import { AccountController } from "./account/infra/controller/AccountController";
 import { PgPromiseAdapter } from "./account/infra/database/Connection";
+import { CreateEvent } from "./event/application/usecase/CreateEvent";
+import { EditEvent } from "./event/application/usecase/EditEvent";
+import { EventController } from "./event/infra/controller/EventController";
 
 const connection = new PgPromiseAdapter();
 const authProvider = new JWTAuth();
@@ -15,15 +19,23 @@ const createAccount = new CreateAccount(accountRepository);
 const authentication = new Authentication(accountRepository, authProvider);
 const accountController = new AccountController(createAccount, authentication);
 
+const eventRepository = new EventRepositoryMemory();
+const createEvent = new CreateEvent(accountRepository, eventRepository);
+const editEvent = new EditEvent(accountRepository, eventRepository);
+const eventController = new EventController(createEvent, editEvent);
+
 const routes = Router();
 const app = express();
 app.use(express.json());
 
-routes.post("/signup", (req, res) => accountController.create(req, res)); // Rota pública
+routes.post("/signup", (req, res) => accountController.create(req, res));
+routes.post("/login", (req, res) => accountController.login(req, res));
 
 routes.use((req, res, next) => authProvider.checkToken(req, res, next));
 
-routes.post("/login", (req, res) => accountController.login(req, res)); // Rota privada
+routes.post("/events", (req, res) => eventController.create(req, res));
+routes.put("/events/:eventId", (req, res) => eventController.edit(req, res));
+
 app.use(routes);
 
 app.listen(process.env.PORT, () => {

@@ -38,4 +38,20 @@ export class AccountRepositoryDatabase implements AccountRepository {
       data.avatar
     );
   }
+
+  async findByAccountId(accountId: string): Promise<Account | undefined> {
+    const [data] = await this.connection.query(
+      "SELECT * FROM account_id = $1",
+      [accountId]
+    );
+    if (!data) return undefined;
+    return Account.restore(
+      data.account_id,
+      data.first_name,
+      data.last_name,
+      data.email,
+      data.password,
+      data.avatar
+    );
+  }
 }

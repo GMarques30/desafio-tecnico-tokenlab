@@ -1,23 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import {
-  JwtPayload,
-  sign,
-  SignOptions,
-  verify,
-  VerifyOptions,
-} from "jsonwebtoken";
+import { JwtPayload, sign, SignOptions, verify } from "jsonwebtoken";
 
 export interface AuthProvider {
   sign(
     payload: string | Buffer | object,
     secretKey: string,
-    options: SignOptions
+    options: object
   ): string;
-  verify(
-    token: string,
-    secretKey: string,
-    options: VerifyOptions
-  ): string | JwtPayload;
+  verify(token: string, secretKey: string, options: object): string | object;
   checkToken(req: Request, res: Response, next: NextFunction): void;
 }
 
