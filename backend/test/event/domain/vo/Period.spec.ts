@@ -23,3 +23,27 @@ test("Should throw an error when the start date is a date in the past", function
     new Error("The provided start date must not be in the past.")
   );
 });
+
+test("Should throw an error when the start date is empty", function () {
+  const startedAt = "";
+  const finishedAt = "2025-12-23T00:00:00";
+  expect(() => new Period(startedAt, finishedAt)).toThrow(
+    new Error("Invalid date.")
+  );
+});
+
+test("Should throw an error when the finished date is empty", function () {
+  const startedAt = "2025-12-23T00:00:00";
+  const finishedAt = "";
+  expect(() => new Period(startedAt, finishedAt)).toThrow(
+    new Error("Invalid date.")
+  );
+});
+
+test("Should throw an error when the started date and finished date are empty", function () {
+  const startedAt = "";
+  const finishedAt = "";
+  expect(() => new Period(startedAt, finishedAt)).toThrow(
+    new Error("Invalid date.")
+  );
+});

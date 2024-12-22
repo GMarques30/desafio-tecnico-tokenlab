@@ -27,7 +27,7 @@ test("Should create an event without conflict", async function () {
   };
   await sut.execute(input);
   const event = await eventRepository.findByAccountId(account.getAccountId());
-  expect(event?.getDescription()).toEqual("Event 1");
+  expect(event[0].description).toEqual("Event 1");
 });
 
 test("Should throw an error when acount not found", function () {

@@ -38,16 +38,17 @@ export class EventRepositoryMemory implements EventRepository {
     return eventConflictExists !== undefined;
   }
 
-  async findByAccountId(accountId: string): Promise<Event | undefined> {
-    const event = this.events.find((event) => event.accountId === accountId);
-    if (!event) return undefined;
-    return Event.restore(
-      event.eventId,
-      event.description,
-      event.accountId,
-      event.startedAt,
-      event.finishedAt
-    );
+  async findByAccountId(accountId: string): Promise<
+    {
+      eventId: string;
+      description: string;
+      accountId: string;
+      startedAt: Date;
+      finishedAt: Date;
+    }[]
+  > {
+    const events = this.events.filter((event) => event.accountId === accountId);
+    return events;
   }
 
   async findByEventId(eventId: string): Promise<Event | undefined> {
