@@ -74,4 +74,12 @@ export class EventRepositoryMemory implements EventRepository {
       finishedAt: event.getFinishedAt(),
     };
   }
+
+  async remove(eventId: string): Promise<void> {
+    const index = this.events.findIndex((event) => event.eventId === eventId);
+    if (index === -1) {
+      return;
+    }
+    this.events.splice(index, 1);
+  }
 }

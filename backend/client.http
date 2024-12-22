@@ -1,5 +1,5 @@
 @BaseUrl = http://localhost:8080
-@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI4MGQ2YTIwOS1mOTg1LTRlYjUtOTg5Mi00NTEwNWY0ZGM2ZTEiLCJpYXQiOjE3MzQ4MjI0MzcsImV4cCI6MTczNDgyOTYzN30.U0fz7y7IWXH1KVBmNoDnvX_w48oRXasmHdHTzGNtOcw
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2ZDI5YzE1Ny0yZGNjLTRmZTUtOWFiYy0xMjJhNDY0MGRiYmIiLCJpYXQiOjE3MzQ4MzE0OTksImV4cCI6MTczNDgzODY5OX0.NJchpnx3ziMepkP6BNpxmKugktE-FE5IdruhyLt75ME
 
 # @name create_account
 POST {{BaseUrl}}/signup
@@ -39,7 +39,7 @@ Content-Type: application/json
 ###
 
 # @name edit_event
-PUT {{BaseUrl}}/events/04b55bb1-637c-4ea4-82d1-e8daa73d5357
+PUT {{BaseUrl}}/events/4ee758c7-05dc-4c9f-adcc-45c52f971752
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
@@ -48,3 +48,10 @@ Content-Type: application/json
   "startedAt": "",
   "finishedAt": ""
 }
+
+###
+
+# @name remove_event
+DELETE {{BaseUrl}}/events/4ee758c7-05dc-4c9f-adcc-45c52f971752
+Authorization: Bearer {{Token}}
+Content-Type: application/json

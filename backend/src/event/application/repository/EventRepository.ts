@@ -6,4 +6,5 @@ export interface EventRepository {
   findByAccountId(accountId: string): Promise<Event | undefined>;
   findByEventId(eventId: string): Promise<Event | undefined>;
   update(event: Event): Promise<void>;
+  remove(eventId: string): Promise<void>;
 }

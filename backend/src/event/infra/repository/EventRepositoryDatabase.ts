@@ -78,4 +78,10 @@ export class EventRepositoryDatabase implements EventRepository {
       ]
     );
   }
+
+  async remove(eventId: string): Promise<void> {
+    await this.connection.query("DELETE FROM events WHERE event_id = $1", [
+      eventId,
+    ]);
+  }
 }
