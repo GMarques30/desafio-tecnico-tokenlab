@@ -1,5 +1,5 @@
 import { Account } from "../../domain/entity/Account";
-import { EmailConflictError } from "../exception/EmailConflictError";
+import { ConflictError } from "../exception/ConflictError";
 import { AccountRepository } from "./../repository/AccountRepository";
 
 export class CreateAccount {
@@ -14,7 +14,7 @@ export class CreateAccount {
       input.email
     );
     if (accountAlreadyExists) {
-      throw new EmailConflictError("This email is already in use.");
+      throw new ConflictError("This email is already in use.");
     }
     const account = Account.create(
       input.firstName,

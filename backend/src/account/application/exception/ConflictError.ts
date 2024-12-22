@@ -1,4 +1,4 @@
-export class EmailConflictError extends Error {
+export class ConflictError extends Error {
   private status: number;
 
   constructor(message: string) {
