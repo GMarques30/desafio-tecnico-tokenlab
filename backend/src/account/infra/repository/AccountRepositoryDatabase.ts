@@ -41,7 +41,7 @@ export class AccountRepositoryDatabase implements AccountRepository {
 
   async findByAccountId(accountId: string): Promise<Account | undefined> {
     const [data] = await this.connection.query(
-      "SELECT * FROM account_id = $1",
+      "SELECT * FROM account WHERE account_id = $1",
       [accountId]
     );
     if (!data) return undefined;
