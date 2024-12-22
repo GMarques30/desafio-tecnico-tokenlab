@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../src/account/application/exception/ValidationError";
 import { UUID } from "../../../../src/account/domain/vo/UUID";
 
 test.each([
@@ -15,7 +16,7 @@ test.each([
   "d1c9f8e2-9f5f-4e0e-b634-687d9bc799g3",
   "12345-67890-abcde-fghij-klmno",
 ])("Should check that it is a invalid uuid", function (uuid: string) {
-  expect(() => new UUID(uuid)).toThrow(new Error("Invalid UUID."));
+  expect(() => new UUID(uuid)).toThrow(new ValidationError("Invalid UUID."));
 });
 
 test("Should be able to create a uuid", function () {

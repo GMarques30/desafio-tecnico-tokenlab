@@ -1,3 +1,5 @@
+import { ValidationError } from "../../application/exception/ValidationError";
+
 export class Name {
   private firstName: string;
   private lastName: string;
@@ -7,7 +9,7 @@ export class Name {
       !firstName.match(/^[A-Za-zÀ-ÿ]{3,}$/) ||
       !lastName.match(/^[A-Za-zÀ-ÿ]{3,}$/)
     ) {
-      throw new Error("Invalid name.");
+      throw new ValidationError("Invalid name.");
     }
     this.firstName = firstName;
     this.lastName = lastName;

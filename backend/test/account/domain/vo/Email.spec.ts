@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../src/account/application/exception/ValidationError";
 import { Email } from "../../../../src/account/domain/vo/Email";
 
 test.each([
@@ -17,5 +18,5 @@ test.each([
   "@empresa..com",
   "usuario@com",
 ])("Should check that it is a invalid email", function (email: string) {
-  expect(() => new Email(email)).toThrow(new Error("Invalid email."));
+  expect(() => new Email(email)).toThrow(new ValidationError("Invalid email."));
 });

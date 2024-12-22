@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../src/account/application/exception/ValidationError";
 import { Password } from "../../../../src/account/domain/vo/Password";
 
 import crypto from "node:crypto";
@@ -17,7 +18,7 @@ test.each(["abcdef", "ABC@123", "abc123", "Ab@1", "A1b@cdefghijkl"])(
   "Should check that it is a invalid password",
   function (password: string) {
     expect(() => Password.create(password)).toThrow(
-      new Error("Invalid password.")
+      new ValidationError("Invalid password.")
     );
   }
 );

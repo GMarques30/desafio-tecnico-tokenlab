@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../src/account/application/exception/ValidationError";
 import { Name } from "../../../../src/account/domain/vo/Name";
 
 test.each([
@@ -30,7 +31,7 @@ test.each([
   "Should throw an error for invalid name",
   function (firstName: string, lastName: string) {
     expect(() => new Name(firstName, lastName)).toThrow(
-      new Error("Invalid name.")
+      new ValidationError("Invalid name.")
     );
   }
 );

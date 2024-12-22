@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import { ValidationError } from "../../application/exception/ValidationError";
 
 export class Password {
   private password: string;
@@ -9,7 +10,7 @@ export class Password {
 
   static create(password: string) {
     if (!password.match(/^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\W)).{6,12}$/)) {
-      throw new Error("Invalid password.");
+      throw new ValidationError("Invalid password.");
     }
     const encryptedPassword = crypto
       .createHash("SHA-256")

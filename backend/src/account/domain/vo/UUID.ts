@@ -1,3 +1,5 @@
+import { ValidationError } from "../../application/exception/ValidationError";
+
 export class UUID {
   private value: string;
 
@@ -7,7 +9,7 @@ export class UUID {
         /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
       )
     ) {
-      throw new Error("Invalid UUID.");
+      throw new ValidationError("Invalid UUID.");
     }
     this.value = uuid;
   }
