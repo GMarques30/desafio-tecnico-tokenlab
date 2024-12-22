@@ -10,6 +10,7 @@ import { AccountController } from "./account/infra/controller/AccountController"
 import { PgPromiseAdapter } from "./account/infra/database/Connection";
 import { CreateEvent } from "./event/application/usecase/CreateEvent";
 import { EditEvent } from "./event/application/usecase/EditEvent";
+import { GetEvents } from "./event/application/usecase/GetEvents";
 import { RemoveEvent } from "./event/application/usecase/RemoveEvent";
 import { EventController } from "./event/infra/controller/EventController";
 
@@ -24,10 +25,12 @@ const eventRepository = new EventRepositoryMemory();
 const createEvent = new CreateEvent(accountRepository, eventRepository);
 const editEvent = new EditEvent(accountRepository, eventRepository);
 const removeEvent = new RemoveEvent(accountRepository, eventRepository);
+const getEvents = new GetEvents(accountRepository, eventRepository);
 const eventController = new EventController(
   createEvent,
   editEvent,
-  removeEvent
+  removeEvent,
+  getEvents
 );
 
 const routes = Router();
@@ -44,6 +47,7 @@ routes.put("/events/:eventId", (req, res) => eventController.edit(req, res));
 routes.delete("/events/:eventId", (req, res) =>
   eventController.remove(req, res)
 );
+routes.get("/events", (req, res) => eventController.get(req, res));
 
 app.use(routes);
 
