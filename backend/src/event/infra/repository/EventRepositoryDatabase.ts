@@ -11,7 +11,7 @@ export class EventRepositoryDatabase implements EventRepository {
 
   async save(event: Event): Promise<void> {
     await this.connection.query(
-      "INSERT INTO event (event_id, description, account_id, started_at, finished_at) VALUES ($1, $2, $3, $4, $5)",
+      "INSERT INTO events (event_id, description, account_id, started_at, finished_at) VALUES ($1, $2, $3, $4, $5)",
       [
         event.getEventId(),
         event.getDescription(),
@@ -22,7 +22,6 @@ export class EventRepositoryDatabase implements EventRepository {
     );
   }
 
-  // "SELECT COUNT(*) FROM events WHERE event_id != $1 AND account_id = $2 AND ((started_at < $3 AND finished_at > $4))"
   async checkEventConflict(event: Event): Promise<boolean> {
     const eventConflictExists = await this.connection.query(
       "SELECT COUNT(*) FROM events WHERE event_id != $1 AND account_id = $2 AND ((started_at < $4 AND finished_at > $3) OR (started_at <= $3 AND finished_at >= $4))",
@@ -36,19 +35,30 @@ export class EventRepositoryDatabase implements EventRepository {
     return eventConflictExists > 0;
   }
 
-  async findByAccountId(accountId: string): Promise<Event | undefined> {
-    const event = await this.connection.query(
+  async findByAccountId(accountId: string): Promise<
+    {
+      eventId: string;
+      description: string;
+      accountId: string;
+      startedAt: Date;
+      finishedAt: Date;
+    }[]
+  > {
+    const eventsData = await this.connection.query(
       "SELECT * FROM events WHERE account_id = $1",
       [accountId]
     );
-    if (!event) return undefined;
-    return Event.restore(
-      event.eventId,
-      event.description,
-      event.acountId,
-      event.startedAt,
-      event.finishedAt
-    );
+    const events = [];
+    for (const ev of eventsData) {
+      events.push({
+        eventId: ev.eventId,
+        description: ev.description,
+        accountId: ev.accountId,
+        startedAt: new Date(ev.startedAt),
+        finishedAt: new Date(ev.finishedAt),
+      });
+    }
+    return events;
   }
 
   async findByEventId(eventId: string): Promise<Event | undefined> {
