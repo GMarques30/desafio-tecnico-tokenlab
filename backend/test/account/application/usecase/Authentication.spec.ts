@@ -1,5 +1,5 @@
-import { CredentialsInvalidError } from "../../../../src/account/application/exception/CredentialsInvalidError";
-import { NotFoundError } from "../../../../src/account/application/exception/NotFoundError";
+import { CredentialsInvalidError } from "../../../../src/account/application/errors/CredentialsInvalidError";
+import { NotFoundError } from "../../../../src/account/application/errors/NotFoundError";
 import { Authentication } from "../../../../src/account/application/usecase/Authentication";
 import { Account } from "../../../../src/account/domain/entity/Account";
 import { AccountRepositoryMemory } from "../../infra/repository/AccountRepositoryMemory";

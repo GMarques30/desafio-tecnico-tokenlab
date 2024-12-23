@@ -1,6 +1,6 @@
 import { AuthProvider } from "../../infra/auth/AuthProvider";
-import { CredentialsInvalidError } from "../exception/CredentialsInvalidError";
-import { NotFoundError } from "../exception/NotFoundError";
+import { CredentialsInvalidError } from "../errors/CredentialsInvalidError";
+import { NotFoundError } from "../errors/NotFoundError";
 import { AccountRepository } from "../repository/AccountRepository";
 
 export class Authentication {

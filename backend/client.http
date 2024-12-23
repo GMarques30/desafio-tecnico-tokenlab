@@ -1,5 +1,5 @@
 @BaseUrl = http://localhost:8080
-@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2ZDI5YzE1Ny0yZGNjLTRmZTUtOWFiYy0xMjJhNDY0MGRiYmIiLCJpYXQiOjE3MzQ4MzE0OTksImV4cCI6MTczNDgzODY5OX0.NJchpnx3ziMepkP6BNpxmKugktE-FE5IdruhyLt75ME
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI3NWFjMzg0MS0yZDA0LTQ0OWUtOTNhMC00NzAxZTM5MTg4ZTAiLCJpYXQiOjE3MzQ5NzQ3MzIsImV4cCI6MTczNDk4MTkzMn0.yWlumQFiToEU4PPwg4M5e6VJyVtHIkhGQX5ENWpqPGo
 
 # @name create_account
 POST {{BaseUrl}}/signup
@@ -14,6 +14,19 @@ Content-Type: application/json
 
 ###
 
+# @name create_account
+POST {{BaseUrl}}/signup
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane.smith@example.com",
+  "password": "Jane@123"
+}
+
+###
+
 # @name authentication
 POST {{BaseUrl}}/login
 Content-Type: application/json
@@ -21,6 +34,17 @@ Content-Type: application/json
 {
   "email": "john.doe@example.com",
   "password": "John@123"
+}
+
+###
+
+# @name authentication
+POST {{BaseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "jane.smith@example.com",
+  "password": "Jane@123"
 }
 
 ###
@@ -39,7 +63,7 @@ Content-Type: application/json
 ###
 
 # @name edit_event
-PUT {{BaseUrl}}/events/4ee758c7-05dc-4c9f-adcc-45c52f971752
+PUT {{BaseUrl}}/events/80984663-ca41-46bb-b56b-04495fd991ef
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
@@ -55,3 +79,15 @@ Content-Type: application/json
 DELETE {{BaseUrl}}/events/4ee758c7-05dc-4c9f-adcc-45c52f971752
 Authorization: Bearer {{Token}}
 Content-Type: application/json
+
+###
+
+# @name invite
+
+POST {{BaseUrl}}/events/80984663-ca41-46bb-b56b-04495fd991ef/invite
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+  "guestId": "95bbc06a-f955-4911-9006-94e2dfdbcbcf"
+}

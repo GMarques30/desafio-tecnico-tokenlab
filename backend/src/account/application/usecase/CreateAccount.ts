@@ -1,5 +1,5 @@
 import { Account } from "../../domain/entity/Account";
-import { ConflictError } from "../exception/ConflictError";
+import { ConflictError } from "../errors/ConflictError";
 import { AccountRepository } from "./../repository/AccountRepository";
 
 export class CreateAccount {

@@ -1,4 +1,4 @@
-import { ValidationError } from "../../../../src/account/application/exception/ValidationError";
+import { ValidationError } from "../../../../src/account/application/errors/ValidationError";
 import { Name } from "../../../../src/account/domain/vo/Name";
 
 test.each([

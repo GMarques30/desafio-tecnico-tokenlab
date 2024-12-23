@@ -3,13 +3,15 @@ import { CreateEvent } from "../../application/usecase/CreateEvent";
 import { EditEvent } from "../../application/usecase/EditEvent";
 import { GetEvents } from "../../application/usecase/GetEvents";
 import { RemoveEvent } from "../../application/usecase/RemoveEvent";
+import { InviteEvent } from "./../../application/usecase/InviteEvent";
 
 export class EventController {
   constructor(
     private readonly createEvent: CreateEvent,
     private readonly editEvent: EditEvent,
     private readonly removeEvent: RemoveEvent,
-    private readonly getEvents: GetEvents
+    private readonly getEvents: GetEvents,
+    private readonly inviteEvent: InviteEvent
   ) {}
 
   async create(req: Request, res: Response) {
@@ -42,7 +44,7 @@ export class EventController {
   async remove(req: Request, res: Response) {
     const input = {
       eventId: req.params.eventId,
-      accountId: req.accountId!,
+      accountId: req.accountId,
     };
     try {
       await this.removeEvent.execute(input);
@@ -57,7 +59,23 @@ export class EventController {
   async get(req: Request, res: Response) {
     try {
       const output = await this.getEvents.execute({
-        accountId: req.accountId!,
+        accountId: req.accountId,
+      });
+      res.status(200).json(output);
+    } catch (e: any) {
+      res.status(e.status).json({
+        message: e.message,
+      });
+    }
+  }
+
+  async invite(req: Request, res: Response) {
+    const { guestId } = req.body;
+    try {
+      const output = await this.inviteEvent.execute({
+        accountId: req.accountId,
+        eventId: req.params.eventId,
+        guestId,
       });
       res.status(200).json(output);
     } catch (e: any) {

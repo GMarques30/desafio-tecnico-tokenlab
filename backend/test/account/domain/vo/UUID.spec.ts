@@ -1,4 +1,4 @@
-import { ValidationError } from "../../../../src/account/application/exception/ValidationError";
+import { ValidationError } from "../../../../src/account/application/errors/ValidationError";
 import { UUID } from "../../../../src/account/domain/vo/UUID";
 
 test.each([

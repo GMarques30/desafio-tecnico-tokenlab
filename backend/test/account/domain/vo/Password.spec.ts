@@ -1,4 +1,4 @@
-import { ValidationError } from "../../../../src/account/application/exception/ValidationError";
+import { ValidationError } from "../../../../src/account/application/errors/ValidationError";
 import { Password } from "../../../../src/account/domain/vo/Password";
 
 import crypto from "node:crypto";

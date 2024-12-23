@@ -1,4 +1,4 @@
-import { ValidationError } from "../../../account/application/exception/ValidationError";
+import { ValidationError } from "../../../account/application/errors/ValidationError";
 
 export class Period {
   private startedAt: Date;

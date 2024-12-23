@@ -1,4 +1,4 @@
-import { NotFoundError } from "../../../../src/account/application/exception/NotFoundError";
+import { NotFoundError } from "../../../../src/account/application/errors/NotFoundError";
 import { AccountRepository } from "../../../../src/account/application/repository/AccountRepository";
 import { Account } from "../../../../src/account/domain/entity/Account";
 import { EventRepository } from "../../../../src/event/application/repository/EventRepository";

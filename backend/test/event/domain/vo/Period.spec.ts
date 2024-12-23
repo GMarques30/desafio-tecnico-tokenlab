@@ -1,4 +1,4 @@
-import { ValidationError } from "../../../../src/account/application/exception/ValidationError";
+import { ValidationError } from "../../../../src/account/application/errors/ValidationError";
 import { Period } from "../../../../src/event/domain/vo/Period";
 
 test("Should be possible to create a valid period", function () {

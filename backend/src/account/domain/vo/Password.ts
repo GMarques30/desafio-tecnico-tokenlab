@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { ValidationError } from "../../application/exception/ValidationError";
+import { ValidationError } from "../../application/errors/ValidationError";
 
 export class Password {
   private password: string;
