@@ -19,14 +19,13 @@ import { RemoveEvent } from "./event/application/usecase/RemoveEvent";
 import { EventController } from "./event/infra/controller/EventController";
 
 const connection = new PgPromiseAdapter();
-const authProvider = new JWTAuth();
 const accountRepository = new AccountRepositoryMemory();
-const createAccount = new CreateAccount(accountRepository);
-const authentication = new Authentication(accountRepository, authProvider);
-const accountController = new AccountController(createAccount, authentication);
-
 const eventRepository = new EventRepositoryMemory();
 const inviteeRepository = new InviteeRepositoryMemory();
+
+const authProvider = new JWTAuth();
+const createAccount = new CreateAccount(accountRepository);
+const authentication = new Authentication(accountRepository, authProvider);
 const createEvent = new CreateEvent(accountRepository, eventRepository);
 const editEvent = new EditEvent(accountRepository, eventRepository);
 const removeEvent = new RemoveEvent(accountRepository, eventRepository);
@@ -38,6 +37,8 @@ const inviteEvent = new InviteEvent(
 );
 const acceptEvent = new AcceptEvent(inviteeRepository);
 const declineEvent = new DeclineEvent(inviteeRepository);
+
+const accountController = new AccountController(createAccount, authentication);
 const eventController = new EventController(
   createEvent,
   editEvent,
