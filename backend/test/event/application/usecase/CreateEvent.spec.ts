@@ -1,3 +1,5 @@
+import { ConflictError } from "../../../../src/account/application/errors/ConflictError";
+import { NotFoundError } from "../../../../src/account/application/errors/NotFoundError";
 import { Account } from "../../../../src/account/domain/entity/Account";
 import { EventRepository } from "../../../../src/event/application/repository/EventRepository";
 import { CreateEvent } from "../../../../src/event/application/usecase/CreateEvent";
@@ -38,7 +40,7 @@ test("Should throw an error when acount not found", function () {
     finishedAt: "2025-12-22",
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("Account not found.")
+    new NotFoundError("Account not found.")
   );
 });
 
@@ -57,7 +59,9 @@ test("Should throw an error when creating an event that starts before but ends d
     finishedAt: "2025-12-22T00:00:00",
   };
   expect(() => sut.execute(input2)).rejects.toThrow(
-    new Error("You already have an event taking place at the same time.")
+    new ConflictError(
+      "You already have an event taking place at the same time."
+    )
   );
 });
 

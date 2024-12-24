@@ -1,3 +1,4 @@
+import { ConflictError } from "../../../account/application/errors/ConflictError";
 import { NotFoundError } from "../../../account/application/errors/NotFoundError";
 import { AccountRepository } from "../../../account/application/repository/AccountRepository";
 import { Event } from "../../domain/entity/Event";
@@ -30,10 +31,9 @@ export class CreateEvent {
       event
     );
     if (eventConflictExists)
-      throw new Error(
+      throw new ConflictError(
         "You already have an event taking place at the same time."
       );
-    console.log(event);
     await this.eventRepository.save(event);
   }
 }
