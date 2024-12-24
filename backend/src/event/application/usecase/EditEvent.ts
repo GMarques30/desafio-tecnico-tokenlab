@@ -37,7 +37,6 @@ export class EditEvent {
         "You already have an event taking place at the same time."
       );
     }
-    console.log(event);
     await this.eventRepository.update(event);
   }
 }
