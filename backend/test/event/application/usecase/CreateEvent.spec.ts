@@ -22,8 +22,8 @@ test("Should create an event without conflict", async function () {
     finishedAt: "2025-12-22",
   };
   await sut.execute(input);
-  const event = await eventRepository.findByAccountId(account.getAccountId());
-  expect(event[0].description).toEqual("Event 1");
+  const events = await eventRepository.findByAccountId(account.getAccountId());
+  expect(events[0].getDescription()).toEqual("Event 1");
 });
 
 test("Should throw an error when creating an event that starts before but ends during another event", async function () {
