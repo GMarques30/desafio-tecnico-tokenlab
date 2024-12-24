@@ -1,6 +1,8 @@
+import { ConflictError } from "../../../../src/account/application/errors/ConflictError";
 import { NotFoundError } from "../../../../src/account/application/errors/NotFoundError";
 import { AccountRepository } from "../../../../src/account/application/repository/AccountRepository";
 import { Account } from "../../../../src/account/domain/entity/Account";
+import { NotEventCreator } from "../../../../src/event/application/errors/NotEventCreator";
 import { EventRepository } from "../../../../src/event/application/repository/EventRepository";
 import { EditEvent } from "../../../../src/event/application/usecase/EditEvent";
 import { Event } from "../../../../src/event/domain/entity/Event";
@@ -57,17 +59,6 @@ test("Should be possible to change some of the data", async function () {
   expect(acc?.getFinishedAt()).toEqual(event.getFinishedAt());
 });
 
-test("Should throw an error when the account was not found", function () {
-  const input = {
-    eventId: event.getEventId(),
-    accountId: crypto.randomUUID(),
-    finishedAt: "2026-12-28T00:00:00",
-  };
-  expect(() => sut.execute(input)).rejects.toThrow(
-    new NotFoundError("Account not found.")
-  );
-});
-
 test("Should throw an error if the event was not found", function () {
   const input = {
     eventId: crypto.randomUUID(),
@@ -75,7 +66,7 @@ test("Should throw an error if the event was not found", function () {
     finishedAt: "2026-12-28T00:00:00",
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("Event not found.")
+    new NotFoundError("Event not found.")
   );
 });
 
@@ -94,7 +85,7 @@ test("Should throw an error if the accountId does not match the event's accountI
     accountId: newAccount.getAccountId(),
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("You are not the creator of this event.")
+    new NotEventCreator("You are not the creator of this event.")
   );
 });
 
@@ -113,7 +104,9 @@ test("Should throw an error when the new event date starts before and ends durin
     accountId: account.getAccountId(),
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("You already have an event taking place at the same time.")
+    new ConflictError(
+      "You already have an event taking place at the same time."
+    )
   );
 });
 
@@ -132,7 +125,9 @@ test("Should throw an error when the new event date starts during another event 
     accountId: account.getAccountId(),
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("You already have an event taking place at the same time.")
+    new ConflictError(
+      "You already have an event taking place at the same time."
+    )
   );
 });
 
@@ -151,6 +146,8 @@ test("Should throw an error when the new event date starts and ends during anoth
     accountId: account.getAccountId(),
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("You already have an event taking place at the same time.")
+    new ConflictError(
+      "You already have an event taking place at the same time."
+    )
   );
 });

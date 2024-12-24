@@ -1,5 +1,7 @@
+import { ConflictError } from "../../../account/application/errors/ConflictError";
 import { NotFoundError } from "../../../account/application/errors/NotFoundError";
 import { AccountRepository } from "../../../account/application/repository/AccountRepository";
+import { NotEventCreator } from "../errors/NotEventCreator";
 import { EventRepository } from "../repository/EventRepository";
 
 export class EditEvent {
@@ -15,14 +17,10 @@ export class EditEvent {
   }
 
   async execute(input: EditEventInput): Promise<void> {
-    const account = await this.accountRepository.findByAccountId(
-      input.accountId
-    );
-    if (!account) throw new NotFoundError("Account not found.");
     const event = await this.eventRepository.findByEventId(input.eventId);
     if (!event) throw new NotFoundError("Event not found.");
-    if (account.getAccountId() !== event.getAccountId()) {
-      throw new Error("You are not the creator of this event.");
+    if (input.accountId !== event.getAccountId()) {
+      throw new NotEventCreator("You are not the creator of this event.");
     }
     event.setDescription(input.description || event.getDescription());
     event.setPeriod(
@@ -33,7 +31,7 @@ export class EditEvent {
       event
     );
     if (eventConflictExists) {
-      throw new Error(
+      throw new ConflictError(
         "You already have an event taking place at the same time."
       );
     }
