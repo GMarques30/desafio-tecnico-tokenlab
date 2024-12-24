@@ -6,7 +6,7 @@ import {
 } from "../vo/InviteeStatus";
 
 export class Invitee {
-  private inviteeId: UUID;
+  private readonly inviteeId: UUID;
   private eventId: UUID;
   private guestId: UUID;
   inviteeStatus: InviteeStatus;
