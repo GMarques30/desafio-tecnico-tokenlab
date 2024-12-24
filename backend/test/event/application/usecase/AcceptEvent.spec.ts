@@ -1,5 +1,6 @@
 import { NotFoundError } from "../../../../src/account/application/errors/NotFoundError";
 import { Account } from "../../../../src/account/domain/entity/Account";
+import { NotInvitedError } from "../../../../src/event/application/errors/NotInvitedError";
 import { AcceptEvent } from "../../../../src/event/application/usecase/AcceptEvent";
 import { Invitee } from "../../../../src/event/domain/entity/Invitee";
 import { AccountRepositoryMemory } from "../../../account/infra/repository/AccountRepositoryMemory";
@@ -49,6 +50,6 @@ test("Should throw an error if the guest identifier is different from the one on
     guestId: crypto.randomUUID(),
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("This account was not invited to this event.")
+    new NotInvitedError("This account was not invited to this event.")
   );
 });

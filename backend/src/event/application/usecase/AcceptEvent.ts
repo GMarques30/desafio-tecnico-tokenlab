@@ -1,4 +1,5 @@
 import { NotFoundError } from "../../../account/application/errors/NotFoundError";
+import { NotInvitedError } from "../errors/NotInvitedError";
 import { InviteeRepository } from "../repository/InviteeRepository";
 
 export class AcceptEvent {
@@ -16,7 +17,7 @@ export class AcceptEvent {
       throw new NotFoundError("Invitee not found.");
     }
     if (input.guestId !== invitee.getGuestId()) {
-      throw new Error("This account was not invited to this event.");
+      throw new NotInvitedError("This account was not invited to this event.");
     }
     invitee.accepted();
     await this.inviteeRepository.update(invitee);
