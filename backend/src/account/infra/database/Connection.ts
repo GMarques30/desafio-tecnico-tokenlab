@@ -9,7 +9,7 @@ export class PgPromiseAdapter implements Connection {
   private connection: any;
 
   constructor() {
-    this.connection = pgp()(process.env.DATABASE_URL!); //Criar uma classe env para lidar com isso
+    this.connection = pgp()(process.env.DATABASE_URL!);
   }
 
   async query(statement: string, params: any): Promise<any> {
