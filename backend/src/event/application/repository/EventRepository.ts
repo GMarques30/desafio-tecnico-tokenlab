@@ -10,7 +10,7 @@ export interface EventRepository {
       accountId: string;
       startedAt: Date;
       finishedAt: Date;
-    }[]
+    }[] // DEVE RETORNAR Event[]
   >;
   findByEventId(eventId: string): Promise<Event | undefined>;
   update(event: Event): Promise<void>;

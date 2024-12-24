@@ -1,19 +1,15 @@
-import { AccountRepository } from "../../../../src/account/application/repository/AccountRepository";
 import { Account } from "../../../../src/account/domain/entity/Account";
 import { EventRepository } from "../../../../src/event/application/repository/EventRepository";
 import { GetEvents } from "../../../../src/event/application/usecase/GetEvents";
 import { Event } from "../../../../src/event/domain/entity/Event";
-import { AccountRepositoryMemory } from "../../../account/infra/repository/AccountRepositoryMemory";
 import { EventRepositoryMemory } from "../../infra/repository/EventRepositoryMemory";
 
-let accountRepository: AccountRepository;
 let eventRepository: EventRepository;
 let sut: GetEvents;
 
 beforeEach(() => {
-  accountRepository = new AccountRepositoryMemory();
   eventRepository = new EventRepositoryMemory();
-  sut = new GetEvents(accountRepository, eventRepository);
+  sut = new GetEvents(eventRepository);
 });
 
 test("Should be possible to return all events for this account", async function () {
@@ -23,7 +19,6 @@ test("Should be possible to return all events for this account", async function 
     "john.doe@example.com",
     "John@123"
   );
-  await accountRepository.save(account);
   const event1 = Event.create(
     "Event 1",
     account.getAccountId(),

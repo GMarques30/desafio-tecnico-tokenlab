@@ -49,13 +49,13 @@ export class EventRepositoryDatabase implements EventRepository {
       [accountId]
     );
     const events = [];
-    for (const ev of eventsData) {
+    for (const event of eventsData) {
       events.push({
-        eventId: ev.eventId,
-        description: ev.description,
-        accountId: ev.accountId,
-        startedAt: new Date(ev.startedAt),
-        finishedAt: new Date(ev.finishedAt),
+        eventId: event.eventId,
+        description: event.description,
+        accountId: event.accountId,
+        startedAt: new Date(event.startedAt),
+        finishedAt: new Date(event.finishedAt),
       });
     }
     return events;

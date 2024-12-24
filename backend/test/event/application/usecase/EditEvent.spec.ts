@@ -18,7 +18,7 @@ let event: Event;
 beforeEach(async () => {
   accountRepository = new AccountRepositoryMemory();
   eventRepository = new EventRepositoryMemory();
-  sut = new EditEvent(accountRepository, eventRepository);
+  sut = new EditEvent(eventRepository);
   account = Account.create("John", "Doe", "john.doe@example.com", "John@123");
   await accountRepository.save(account);
   event = Event.create(

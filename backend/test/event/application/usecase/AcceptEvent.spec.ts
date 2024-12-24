@@ -17,7 +17,6 @@ beforeEach(async () => {
   const accountRepository = new AccountRepositoryMemory();
   sut = new AcceptEvent(inviteeRepository);
   guest = Account.create("John", "Doe", "john.doe@example.com", "John@123");
-  await accountRepository.save(guest);
   invitee = Invitee.create(crypto.randomUUID(), guest.getAccountId());
   await inviteeRepository.save(invitee);
 });
