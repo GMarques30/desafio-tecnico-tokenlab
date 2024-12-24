@@ -23,7 +23,6 @@ beforeEach(async () => {
   accountRepository = new AccountRepositoryMemory();
   sut = new InviteEvent(accountRepository, eventRepository, inviteeRepository);
   account = Account.create("John", "Doe", "john.doe@example.com", "John@123");
-  await accountRepository.save(account);
   guest = Account.create("Jane", "Smith", "jane.smith@example.com", "Jane@456");
   await accountRepository.save(guest);
   event = Event.create(
@@ -74,15 +73,8 @@ test("Should throw an error if the event is not found", function () {
 });
 
 test("Should throw an error if the account you are inviting is not the owner of the event", async function () {
-  const newAccount = Account.create(
-    "Carlos",
-    "Santos",
-    "carlos.santos@example.com",
-    "Carlos@789"
-  );
-  await accountRepository.save(newAccount);
   const input = {
-    accountId: newAccount.getAccountId(),
+    accountId: crypto.randomUUID(),
     eventId: event.getEventId(),
     guestId: guest.getAccountId(),
   };

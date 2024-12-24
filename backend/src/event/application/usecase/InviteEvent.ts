@@ -24,11 +24,11 @@ export class InviteEvent {
     if (!event) {
       throw new NotFoundError("Event not found.");
     }
-    if (event.getAccountId() === input.guestId) {
-      throw new Error("The event owner cannot invite themselves as a guest.");
-    }
     if (event.getAccountId() !== input.accountId) {
       throw new Error("You are not the creator of this event.");
+    }
+    if (event.getAccountId() === input.guestId) {
+      throw new Error("The event owner cannot invite themselves as a guest.");
     }
     const guestAccount = await this.accountRepository.findByAccountId(
       input.guestId
