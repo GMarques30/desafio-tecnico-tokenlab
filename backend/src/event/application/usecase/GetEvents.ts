@@ -10,7 +10,13 @@ export class GetEvents {
   async execute(input: GetEventsInput): Promise<GetEventsOutput> {
     const events = await this.eventRepository.findByAccountId(input.accountId);
     return {
-      events,
+      events: events.map((event) => ({
+        eventId: event.getEventId(),
+        description: event.getDescription(),
+        accountId: event.getAccountId(),
+        startedAt: event.getStartedAt(),
+        finishedAt: event.getFinishedAt(),
+      })),
     };
   }
 }

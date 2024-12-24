@@ -35,28 +35,22 @@ export class EventRepositoryDatabase implements EventRepository {
     return eventConflictExists > 0;
   }
 
-  async findByAccountId(accountId: string): Promise<
-    {
-      eventId: string;
-      description: string;
-      accountId: string;
-      startedAt: Date;
-      finishedAt: Date;
-    }[]
-  > {
+  async findByAccountId(accountId: string): Promise<Event[]> {
     const eventsData = await this.connection.query(
       "SELECT * FROM events WHERE account_id = $1",
       [accountId]
     );
     const events = [];
     for (const event of eventsData) {
-      events.push({
-        eventId: event.eventId,
-        description: event.description,
-        accountId: event.accountId,
-        startedAt: new Date(event.startedAt),
-        finishedAt: new Date(event.finishedAt),
-      });
+      events.push(
+        Event.restore(
+          event.eventId,
+          event.description,
+          event.accountId,
+          event.startedAt,
+          event.finishedAt
+        )
+      );
     }
     return events;
   }

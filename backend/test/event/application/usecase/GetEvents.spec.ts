@@ -59,3 +59,11 @@ test("Should be possible to return all events for this account", async function 
     })
   );
 });
+
+test("Should return empty if there are no events", async function () {
+  const input = {
+    accountId: crypto.randomUUID(),
+  };
+  const allEvents = await sut.execute(input);
+  expect(allEvents.events).toHaveLength(0);
+});
