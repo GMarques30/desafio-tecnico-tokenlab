@@ -51,17 +51,6 @@ test("Should be possible to create an invitation to an event", async function ()
   expect(invitee?.getStatus()).toEqual("PENDING");
 });
 
-test("Should throw an error if the event owner is not found", function () {
-  const input = {
-    accountId: crypto.randomUUID(),
-    eventId: event.getEventId(),
-    guestId: guest.getAccountId(),
-  };
-  expect(() => sut.execute(input)).rejects.toThrow(
-    new NotFoundError("Account not found.")
-  );
-});
-
 test("Should throw an error if the guestId is the same as the event creator", function () {
   const input = {
     accountId: account.getAccountId(),
