@@ -9,6 +9,7 @@ import { CreateAccount } from "./account/application/usecase/CreateAccount";
 import { JWTAuth } from "./account/infra/auth/AuthProvider";
 import { AccountController } from "./account/infra/controller/AccountController";
 import { PgPromiseAdapter } from "./account/infra/database/Connection";
+import { AcceptEvent } from "./event/application/usecase/AcceptEvent";
 import { CreateEvent } from "./event/application/usecase/CreateEvent";
 import { EditEvent } from "./event/application/usecase/EditEvent";
 import { GetEvents } from "./event/application/usecase/GetEvents";
@@ -34,12 +35,14 @@ const inviteEvent = new InviteEvent(
   eventRepository,
   inviteeRepository
 );
+const acceptEvent = new AcceptEvent(accountRepository, inviteeRepository);
 const eventController = new EventController(
   createEvent,
   editEvent,
   removeEvent,
   getEvents,
-  inviteEvent
+  inviteEvent,
+  acceptEvent
 );
 
 const routes = Router();
@@ -59,6 +62,9 @@ routes.delete("/events/:eventId", (req, res) =>
 routes.get("/events", (req, res) => eventController.get(req, res));
 routes.post("/events/:eventId/invite", (req, res) =>
   eventController.invite(req, res)
+);
+routes.patch("/invitee/:inviteeId/accept", (req, res) =>
+  eventController.accept(req, res)
 );
 
 app.use(routes);

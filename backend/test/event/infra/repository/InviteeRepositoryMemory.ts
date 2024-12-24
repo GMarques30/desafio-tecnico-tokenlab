@@ -35,4 +35,16 @@ export class InviteeRepositoryMemory implements InviteeRepository {
       data.inviteeStatus
     );
   }
+
+  async update(invitee: Invitee): Promise<void> {
+    const index = this.invitees.findIndex(
+      (inv) => inv.inviteeId === invitee.getInviteeId()
+    );
+    this.invitees[index] = {
+      inviteeId: invitee.getInviteeId(),
+      eventId: invitee.getEventId(),
+      guestId: invitee.getEventId(),
+      inviteeStatus: invitee.getStatus(),
+    };
+  }
 }
