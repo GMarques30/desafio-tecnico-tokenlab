@@ -1,14 +1,14 @@
 import { NotFoundError } from "../../../account/application/errors/NotFoundError";
 import { InviteeRepository } from "../repository/InviteeRepository";
 
-export class AcceptEvent {
+export class DeclineEvent {
   private readonly inviteeRepository: InviteeRepository;
 
   constructor(inviteeRepository: InviteeRepository) {
     this.inviteeRepository = inviteeRepository;
   }
 
-  async execute(input: AcceptEventInput): Promise<void> {
+  async execute(input: DeclineEventInput) {
     const invitee = await this.inviteeRepository.findByInviteeId(
       input.inviteeId
     );
@@ -18,12 +18,12 @@ export class AcceptEvent {
     if (input.guestId !== invitee.getGuestId()) {
       throw new Error("This account was not invited to this event.");
     }
-    invitee.accepted();
+    invitee.declined();
     await this.inviteeRepository.update(invitee);
   }
 }
 
-interface AcceptEventInput {
+interface DeclineEventInput {
   inviteeId: string;
   guestId: string;
 }

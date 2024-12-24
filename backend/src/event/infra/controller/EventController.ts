@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { AcceptEvent } from "../../application/usecase/AcceptEvent";
 import { CreateEvent } from "../../application/usecase/CreateEvent";
+import { DeclineEvent } from "../../application/usecase/DeclineEvent";
 import { EditEvent } from "../../application/usecase/EditEvent";
 import { GetEvents } from "../../application/usecase/GetEvents";
 import { RemoveEvent } from "../../application/usecase/RemoveEvent";
@@ -13,7 +14,8 @@ export class EventController {
     private readonly removeEvent: RemoveEvent,
     private readonly getEvents: GetEvents,
     private readonly inviteEvent: InviteEvent,
-    private readonly acceptEvent: AcceptEvent
+    private readonly acceptEvent: AcceptEvent,
+    private readonly declineEvent: DeclineEvent
   ) {}
 
   async create(req: Request, res: Response) {
@@ -92,6 +94,21 @@ export class EventController {
     const { inviteeId } = req.params;
     try {
       await this.acceptEvent.execute({
+        inviteeId,
+        guestId,
+      });
+    } catch (e: any) {
+      res.status(e.status).json({
+        message: e.message,
+      });
+    }
+  }
+
+  async decline(req: Request, res: Response) {
+    const { guestId } = req.body;
+    const { inviteeId } = req.params;
+    try {
+      await this.declineEvent.execute({
         inviteeId,
         guestId,
       });

@@ -11,6 +11,7 @@ import { AccountController } from "./account/infra/controller/AccountController"
 import { PgPromiseAdapter } from "./account/infra/database/Connection";
 import { AcceptEvent } from "./event/application/usecase/AcceptEvent";
 import { CreateEvent } from "./event/application/usecase/CreateEvent";
+import { DeclineEvent } from "./event/application/usecase/DeclineEvent";
 import { EditEvent } from "./event/application/usecase/EditEvent";
 import { GetEvents } from "./event/application/usecase/GetEvents";
 import { InviteEvent } from "./event/application/usecase/InviteEvent";
@@ -35,14 +36,16 @@ const inviteEvent = new InviteEvent(
   eventRepository,
   inviteeRepository
 );
-const acceptEvent = new AcceptEvent(accountRepository, inviteeRepository);
+const acceptEvent = new AcceptEvent(inviteeRepository);
+const declineEvent = new DeclineEvent(inviteeRepository);
 const eventController = new EventController(
   createEvent,
   editEvent,
   removeEvent,
   getEvents,
   inviteEvent,
-  acceptEvent
+  acceptEvent,
+  declineEvent
 );
 
 const routes = Router();
@@ -65,6 +68,9 @@ routes.post("/events/:eventId/invite", (req, res) =>
 );
 routes.patch("/invitee/:inviteeId/accept", (req, res) =>
   eventController.accept(req, res)
+);
+routes.patch("/invitee/:inviteeId/decline", (req, res) =>
+  eventController.decline(req, res)
 );
 
 app.use(routes);
