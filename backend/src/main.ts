@@ -26,10 +26,10 @@ const inviteeRepository = new InviteeRepositoryMemory();
 const authProvider = new JWTAuth();
 const createAccount = new CreateAccount(accountRepository);
 const authentication = new Authentication(accountRepository, authProvider);
-const createEvent = new CreateEvent(accountRepository, eventRepository);
-const editEvent = new EditEvent(accountRepository, eventRepository);
-const removeEvent = new RemoveEvent(accountRepository, eventRepository);
-const getEvents = new GetEvents(accountRepository, eventRepository);
+const createEvent = new CreateEvent(eventRepository);
+const editEvent = new EditEvent(eventRepository);
+const removeEvent = new RemoveEvent(eventRepository);
+const getEvents = new GetEvents(eventRepository);
 const inviteEvent = new InviteEvent(
   accountRepository,
   eventRepository,
