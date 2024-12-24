@@ -1,6 +1,8 @@
 import { NotFoundError } from "../../../../src/account/application/errors/NotFoundError";
 import { AccountRepository } from "../../../../src/account/application/repository/AccountRepository";
 import { Account } from "../../../../src/account/domain/entity/Account";
+import { InvalidGuest } from "../../../../src/event/application/errors/InvalidGuest";
+import { NotEventCreator } from "../../../../src/event/application/errors/NotEventCreator";
 import { EventRepository } from "../../../../src/event/application/repository/EventRepository";
 import { InviteeRepository } from "../../../../src/event/application/repository/InviteeRepository";
 import { InviteEvent } from "../../../../src/event/application/usecase/InviteEvent";
@@ -57,7 +59,7 @@ test("Should throw an error if the guestId is the same as the event creator", fu
     guestId: account.getAccountId(),
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("The event owner cannot invite themselves as a guest.")
+    new InvalidGuest("The event owner cannot invite themselves as a guest.")
   );
 });
 
@@ -79,7 +81,7 @@ test("Should throw an error if the account you are inviting is not the owner of 
     guestId: guest.getAccountId(),
   };
   expect(() => sut.execute(input)).rejects.toThrow(
-    new Error("You are not the creator of this event.")
+    new NotEventCreator("You are not the creator of this event.")
   );
 });
 

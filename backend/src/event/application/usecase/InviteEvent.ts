@@ -1,5 +1,7 @@
 import { NotFoundError } from "../../../account/application/errors/NotFoundError";
 import { Invitee } from "../../domain/entity/Invitee";
+import { InvalidGuest } from "../errors/InvalidGuest";
+import { NotEventCreator } from "../errors/NotEventCreator";
 import { InviteeRepository } from "../repository/InviteeRepository";
 import { AccountRepository } from "./../../../account/application/repository/AccountRepository";
 import { EventRepository } from "./../repository/EventRepository";
@@ -25,10 +27,12 @@ export class InviteEvent {
       throw new NotFoundError("Event not found.");
     }
     if (event.getAccountId() !== input.accountId) {
-      throw new Error("You are not the creator of this event.");
+      throw new NotEventCreator("You are not the creator of this event.");
     }
     if (event.getAccountId() === input.guestId) {
-      throw new Error("The event owner cannot invite themselves as a guest.");
+      throw new InvalidGuest(
+        "The event owner cannot invite themselves as a guest."
+      );
     }
     const guestAccount = await this.accountRepository.findByAccountId(
       input.guestId
