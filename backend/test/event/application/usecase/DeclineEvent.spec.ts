@@ -4,7 +4,6 @@ import { NotInvitedError } from "../../../../src/event/application/errors/NotInv
 import { InviteeRepository } from "../../../../src/event/application/repository/InviteeRepository";
 import { DeclineEvent } from "../../../../src/event/application/usecase/DeclineEvent";
 import { Invitee } from "../../../../src/event/domain/entity/Invitee";
-import { AccountRepositoryMemory } from "../../../account/infra/repository/AccountRepositoryMemory";
 import { InviteeRepositoryMemory } from "../../infra/repository/InviteeRepositoryMemory";
 
 let inviteeRepository: InviteeRepository;
@@ -14,10 +13,8 @@ let invitee: Invitee;
 
 beforeEach(async () => {
   inviteeRepository = new InviteeRepositoryMemory();
-  const accountRepository = new AccountRepositoryMemory();
   sut = new DeclineEvent(inviteeRepository);
   guest = Account.create("John", "Doe", "john.doe@example.com", "John@123");
-  await accountRepository.save(guest);
   invitee = Invitee.create(crypto.randomUUID(), guest.getAccountId());
   await inviteeRepository.save(invitee);
 });
