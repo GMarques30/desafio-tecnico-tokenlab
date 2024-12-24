@@ -1,4 +1,3 @@
-import { NotFoundError } from "../../../account/application/errors/NotFoundError";
 import { AccountRepository } from "../../../account/application/repository/AccountRepository";
 import { EventRepository } from "../repository/EventRepository";
 
@@ -15,10 +14,6 @@ export class GetEvents {
   }
 
   async execute(input: GetEventsInput): Promise<GetEventsOutput> {
-    const account = await this.accountRepository.findByAccountId(
-      input.accountId
-    );
-    if (!account) throw new NotFoundError("Account not found.");
     const events = await this.eventRepository.findByAccountId(input.accountId);
     return {
       events,

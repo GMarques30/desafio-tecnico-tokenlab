@@ -1,4 +1,3 @@
-import { NotFoundError } from "../../../../src/account/application/errors/NotFoundError";
 import { AccountRepository } from "../../../../src/account/application/repository/AccountRepository";
 import { Account } from "../../../../src/account/domain/entity/Account";
 import { EventRepository } from "../../../../src/event/application/repository/EventRepository";
@@ -63,14 +62,5 @@ test("Should be possible to return all events for this account", async function 
         }),
       ],
     })
-  );
-});
-
-test("Should throw an error when the account is not found", function () {
-  const input = {
-    accountId: crypto.randomUUID(),
-  };
-  expect(() => sut.execute(input)).rejects.toThrow(
-    new NotFoundError("Account not found.")
   );
 });
