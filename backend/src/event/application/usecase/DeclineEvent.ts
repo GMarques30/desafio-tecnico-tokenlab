@@ -9,7 +9,7 @@ export class DeclineEvent {
     this.inviteeRepository = inviteeRepository;
   }
 
-  async execute(input: DeclineEventInput) {
+  async execute(input: DeclineEventInput): Promise<void> {
     const invitee = await this.inviteeRepository.findByInviteeId(
       input.inviteeId
     );

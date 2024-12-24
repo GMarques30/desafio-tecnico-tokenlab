@@ -1,18 +1,12 @@
 import { ConflictError } from "../../../account/application/errors/ConflictError";
 import { NotFoundError } from "../../../account/application/errors/NotFoundError";
-import { AccountRepository } from "../../../account/application/repository/AccountRepository";
 import { NotEventCreator } from "../errors/NotEventCreator";
 import { EventRepository } from "../repository/EventRepository";
 
 export class EditEvent {
-  private readonly accountRepository: AccountRepository;
   private readonly eventRepository: EventRepository;
 
-  constructor(
-    accountRepository: AccountRepository,
-    eventRepository: EventRepository
-  ) {
-    this.accountRepository = accountRepository;
+  constructor(eventRepository: EventRepository) {
     this.eventRepository = eventRepository;
   }
 

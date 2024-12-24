@@ -9,13 +9,13 @@ export class RemoveEvent {
     this.eventRepository = eventRepository;
   }
 
-  async execute(input: RemoveEventInput) {
+  async execute(input: RemoveEventInput): Promise<void> {
     const event = await this.eventRepository.findByEventId(input.eventId);
     if (!event) throw new NotFoundError("Event not found.");
     if (event.getAccountId() !== input.accountId) {
       throw new NotEventCreator("You are not the creator of this event.");
     }
-    this.eventRepository.remove(event.getEventId());
+    await this.eventRepository.remove(event.getEventId());
   }
 }
 

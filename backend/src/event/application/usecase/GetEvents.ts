@@ -1,16 +1,10 @@
-import { AccountRepository } from "../../../account/application/repository/AccountRepository";
 import { EventRepository } from "../repository/EventRepository";
 
 export class GetEvents {
-  private readonly accountRepository: AccountRepository;
   private readonly eventRepository: EventRepository;
 
-  constructor(
-    accountRepository: AccountRepository,
-    eventRepository: EventRepository
-  ) {
-    (this.accountRepository = accountRepository),
-      (this.eventRepository = eventRepository);
+  constructor(eventRepository: EventRepository) {
+    this.eventRepository = eventRepository;
   }
 
   async execute(input: GetEventsInput): Promise<GetEventsOutput> {
