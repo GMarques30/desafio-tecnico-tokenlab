@@ -42,6 +42,7 @@ export class EventRepositoryDatabase implements EventRepository {
     );
     const events = [];
     for (const event of eventsData) {
+      // Está errado, a nomenclatura das colunas no banco são diferentes
       events.push(
         Event.restore(
           event.eventId,
@@ -61,6 +62,7 @@ export class EventRepositoryDatabase implements EventRepository {
       [eventId]
     );
     if (!event) return undefined;
+    // Está errado, a nomenclatura das colunas no banco são diferentes
     return Event.restore(
       event.eventId,
       event.description,

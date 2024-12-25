@@ -1,22 +1,16 @@
-import { EventRepository } from "../repository/EventRepository";
+import { EventDAO } from "../dao/EventDAO";
 
 export class GetEvents {
-  private readonly eventRepository: EventRepository;
+  private readonly eventDAO: EventDAO;
 
-  constructor(eventRepository: EventRepository) {
-    this.eventRepository = eventRepository;
+  constructor(eventDAO: EventDAO) {
+    this.eventDAO = eventDAO;
   }
 
   async execute(input: GetEventsInput): Promise<GetEventsOutput> {
-    const events = await this.eventRepository.findByAccountId(input.accountId);
+    const events = await this.eventDAO.findByAccountIdQuery(input.accountId);
     return {
-      events: events.map((event) => ({
-        eventId: event.getEventId(),
-        description: event.getDescription(),
-        accountId: event.getAccountId(),
-        startedAt: event.getStartedAt(),
-        finishedAt: event.getFinishedAt(),
-      })),
+      events,
     };
   }
 }
