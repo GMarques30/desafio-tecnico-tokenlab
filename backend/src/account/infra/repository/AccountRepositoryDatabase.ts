@@ -11,7 +11,7 @@ export class AccountRepositoryDatabase implements AccountRepository {
 
   async save(account: Account): Promise<void> {
     await this.connection.query(
-      "INSERT INTO account (account_id, first_name, last_name, email, password, avatar) VALUES ($1, $2, $3, $4, $5, $6)",
+      "INSERT INTO accounts (account_id, first_name, last_name, email, password, avatar) VALUES ($1, $2, $3, $4, $5, $6)",
       [
         account.getAccountId(),
         account.getFirstName(),
@@ -25,7 +25,7 @@ export class AccountRepositoryDatabase implements AccountRepository {
 
   async findByEmail(email: string): Promise<Account | undefined> {
     const [data] = await this.connection.query(
-      "SELECT * FROM account WHERE email = $1",
+      "SELECT * FROM accounts WHERE email = $1",
       [email]
     );
     if (!data) return undefined;
@@ -41,7 +41,7 @@ export class AccountRepositoryDatabase implements AccountRepository {
 
   async findByAccountId(accountId: string): Promise<Account | undefined> {
     const [data] = await this.connection.query(
-      "SELECT * FROM account WHERE account_id = $1",
+      "SELECT * FROM accounts WHERE account_id = $1",
       [accountId]
     );
     if (!data) return undefined;
