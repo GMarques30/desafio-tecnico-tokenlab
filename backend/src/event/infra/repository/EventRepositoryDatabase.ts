@@ -42,14 +42,13 @@ export class EventRepositoryDatabase implements EventRepository {
     );
     const events = [];
     for (const event of eventsData) {
-      // Está errado, a nomenclatura das colunas no banco são diferentes
       events.push(
         Event.restore(
-          event.eventId,
+          event.event_id,
           event.description,
-          event.accountId,
-          event.startedAt,
-          event.finishedAt
+          event.account_id,
+          event.started_at,
+          event.finished_at
         )
       );
     }
@@ -62,13 +61,12 @@ export class EventRepositoryDatabase implements EventRepository {
       [eventId]
     );
     if (!event) return undefined;
-    // Está errado, a nomenclatura das colunas no banco são diferentes
     return Event.restore(
-      event.eventId,
+      event.event_id,
       event.description,
-      event.acountId,
-      event.startedAt,
-      event.finishedAt
+      event.account_id,
+      event.started_at,
+      event.finished_at
     );
   }
 
