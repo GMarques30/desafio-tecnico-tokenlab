@@ -15,8 +15,8 @@ CREATE TABLE events (
   event_id UUID PRIMARY KEY UNIQUE NOT NULL,
   description TEXT NOT NULL,
   account_id UUID NOT NULL,
-  started_at DATE NOT NULL,
-  finished_at DATE NOT NULL,
+  started_at TIMESTAMP NOT NULL,
+  finished_at TIMESTAMP NOT NULL,
   FOREIGN KEY (account_id) REFERENCES accounts(account_id)
 );
 

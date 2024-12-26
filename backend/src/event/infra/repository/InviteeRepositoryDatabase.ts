@@ -11,7 +11,7 @@ export class InviteeRepositoryDatabase implements InviteeRepository {
 
   async save(invitee: Invitee): Promise<void> {
     await this.connection.query(
-      "INSERT INTO invitees (invitee_id, event_id, guest_id, invitee_status) VALUES ($1, $2, $3, $4, $5)",
+      "INSERT INTO invitees (invitee_id, event_id, guest_id, invitee_status) VALUES ($1, $2, $3, $4)",
       [
         invitee.getInviteeId(),
         invitee.getEventId(),
@@ -44,7 +44,7 @@ export class InviteeRepositoryDatabase implements InviteeRepository {
 
   async findByGuestId(guestId: string): Promise<Invitee[]> {
     const [inviteesData] = await this.connection.query(
-      "SELECT * FROM invitees WHERaE guest_id = $1",
+      "SELECT * FROM invitees WHERE guest_id = $1",
       [guestId]
     );
     const invitees = [];

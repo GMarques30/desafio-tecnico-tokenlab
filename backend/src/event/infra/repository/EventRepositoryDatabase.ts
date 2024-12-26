@@ -56,7 +56,7 @@ export class EventRepositoryDatabase implements EventRepository {
   }
 
   async findByEventId(eventId: string): Promise<Event | undefined> {
-    const event = await this.connection.query(
+    const [event] = await this.connection.query(
       "SELECT * FROM events WHERE event_id = $1",
       [eventId]
     );

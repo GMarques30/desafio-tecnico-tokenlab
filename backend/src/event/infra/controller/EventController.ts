@@ -32,8 +32,11 @@ export class EventController {
   }
 
   async edit(req: Request, res: Response) {
+    const { description, startedAt, finishedAt } = req.body;
     const body = {
-      ...req.body,
+      description,
+      startedAt,
+      finishedAt,
       accountId: req.accountId,
       eventId: req.params.eventId,
     };

@@ -1,5 +1,5 @@
 @BaseUrl = http://localhost:8080
-@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI3NWFjMzg0MS0yZDA0LTQ0OWUtOTNhMC00NzAxZTM5MTg4ZTAiLCJpYXQiOjE3MzQ5NzQ3MzIsImV4cCI6MTczNDk4MTkzMn0.yWlumQFiToEU4PPwg4M5e6VJyVtHIkhGQX5ENWpqPGo
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI5MmRhODhiMy0yM2UyLTQ2MzMtODIyNi1mYmU5NDFiMTRlMmMiLCJpYXQiOjE3MzUyNTY1NzcsImV4cCI6MTczNTI2Mzc3N30.fvhLmTLc9Y4rneYSxRgo0HMpjhqopkm0szIVAoSlJPc
 
 # @name create_account
 POST {{BaseUrl}}/signup
@@ -63,20 +63,20 @@ Content-Type: application/json
 ###
 
 # @name edit_event
-PUT {{BaseUrl}}/events/80984663-ca41-46bb-b56b-04495fd991ef
+PUT {{BaseUrl}}/events/488b283c-e1a9-46e1-9d35-3ec7ed08205d
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
   "description": "New description",
-  "startedAt": "",
-  "finishedAt": ""
+  "startedAt": "2025-12-30T01:00:00",
+  "finishedAt": "2025-12-31T05:12:00"
 }
 
 ###
 
 # @name remove_event
-DELETE {{BaseUrl}}/events/4ee758c7-05dc-4c9f-adcc-45c52f971752
+DELETE {{BaseUrl}}/events/488b283c-e1a9-46e1-9d35-3ec7ed08205d
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
@@ -84,10 +84,10 @@ Content-Type: application/json
 
 # @name invite
 
-POST {{BaseUrl}}/events/80984663-ca41-46bb-b56b-04495fd991ef/invite
+POST {{BaseUrl}}/events/94eaa2a2-b4e7-48c9-9cdf-d7f0d90dc6cf/invite
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
-  "guestId": "95bbc06a-f955-4911-9006-94e2dfdbcbcf"
+  "guestId": "2f9af835-491a-448b-adbc-1ef918b205e5"
 }

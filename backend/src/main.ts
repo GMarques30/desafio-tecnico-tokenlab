@@ -1,15 +1,12 @@
 import "dotenv/config";
 
 import express, { Router } from "express";
-import { AccountRepositoryMemory } from "../test/account/infra/repository/AccountRepositoryMemory";
-import { EventDAOMemory } from "../test/event/infra/dao/EventDAOMemory";
-import { EventRepositoryMemory } from "../test/event/infra/repository/EventRepositoryMemory";
-import { InviteeRepositoryMemory } from "../test/event/infra/repository/InviteeRepositoryMemory";
 import { Authentication } from "./account/application/usecase/Authentication";
 import { CreateAccount } from "./account/application/usecase/CreateAccount";
 import { JWTAuth } from "./account/infra/auth/AuthProvider";
 import { AccountController } from "./account/infra/controller/AccountController";
 import { PgPromiseAdapter } from "./account/infra/database/Connection";
+import { AccountRepositoryDatabase } from "./account/infra/repository/AccountRepositoryDatabase";
 import { AcceptEvent } from "./event/application/usecase/AcceptEvent";
 import { CreateEvent } from "./event/application/usecase/CreateEvent";
 import { DeclineEvent } from "./event/application/usecase/DeclineEvent";
@@ -19,12 +16,15 @@ import { GetInvitees } from "./event/application/usecase/GetInvitees";
 import { InviteEvent } from "./event/application/usecase/InviteEvent";
 import { RemoveEvent } from "./event/application/usecase/RemoveEvent";
 import { EventController } from "./event/infra/controller/EventController";
+import { EventDAODatabase } from "./event/infra/dao/EventDAODatabase";
+import { EventRepositoryDatabase } from "./event/infra/repository/EventRepositoryDatabase";
+import { InviteeRepositoryDatabase } from "./event/infra/repository/InviteeRepositoryDatabase";
 
 const connection = new PgPromiseAdapter();
-const accountRepository = new AccountRepositoryMemory();
-const eventRepository = new EventRepositoryMemory();
-const inviteeRepository = new InviteeRepositoryMemory();
-const eventDAO = new EventDAOMemory();
+const accountRepository = new AccountRepositoryDatabase(connection);
+const eventRepository = new EventRepositoryDatabase(connection);
+const inviteeRepository = new InviteeRepositoryDatabase(connection);
+const eventDAO = new EventDAODatabase(connection);
 
 const authProvider = new JWTAuth();
 const createAccount = new CreateAccount(accountRepository);
