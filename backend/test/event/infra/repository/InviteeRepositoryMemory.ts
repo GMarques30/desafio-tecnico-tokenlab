@@ -47,4 +47,20 @@ export class InviteeRepositoryMemory implements InviteeRepository {
       inviteeStatus: invitee.getStatus(),
     };
   }
+
+  async findByGuestId(guestId: string): Promise<Invitee[]> {
+    return this.invitees
+      .filter(
+        (invitee) =>
+          invitee.guestId === guestId && invitee.inviteeStatus === "PENDING"
+      )
+      .map((invitee) =>
+        Invitee.restore(
+          invitee.inviteeId,
+          invitee.eventId,
+          invitee.guestId,
+          invitee.inviteeStatus
+        )
+      );
+  }
 }

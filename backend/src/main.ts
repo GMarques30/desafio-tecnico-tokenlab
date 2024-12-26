@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import express, { Router } from "express";
 import { AccountRepositoryMemory } from "../test/account/infra/repository/AccountRepositoryMemory";
+import { EventDAOMemory } from "../test/event/infra/dao/EventDAOMemory";
 import { EventRepositoryMemory } from "../test/event/infra/repository/EventRepositoryMemory";
 import { InviteeRepositoryMemory } from "../test/event/infra/repository/InviteeRepositoryMemory";
 import { Authentication } from "./account/application/usecase/Authentication";
@@ -14,6 +15,7 @@ import { CreateEvent } from "./event/application/usecase/CreateEvent";
 import { DeclineEvent } from "./event/application/usecase/DeclineEvent";
 import { EditEvent } from "./event/application/usecase/EditEvent";
 import { GetEvents } from "./event/application/usecase/GetEvents";
+import { GetInvitees } from "./event/application/usecase/GetInvitees";
 import { InviteEvent } from "./event/application/usecase/InviteEvent";
 import { RemoveEvent } from "./event/application/usecase/RemoveEvent";
 import { EventController } from "./event/infra/controller/EventController";
@@ -22,6 +24,7 @@ const connection = new PgPromiseAdapter();
 const accountRepository = new AccountRepositoryMemory();
 const eventRepository = new EventRepositoryMemory();
 const inviteeRepository = new InviteeRepositoryMemory();
+const eventDAO = new EventDAOMemory();
 
 const authProvider = new JWTAuth();
 const createAccount = new CreateAccount(accountRepository);
@@ -29,7 +32,7 @@ const authentication = new Authentication(accountRepository, authProvider);
 const createEvent = new CreateEvent(eventRepository);
 const editEvent = new EditEvent(eventRepository);
 const removeEvent = new RemoveEvent(eventRepository);
-const getEvents = new GetEvents(eventRepository);
+const getEvents = new GetEvents(eventDAO);
 const inviteEvent = new InviteEvent(
   accountRepository,
   eventRepository,
@@ -37,6 +40,7 @@ const inviteEvent = new InviteEvent(
 );
 const acceptEvent = new AcceptEvent(inviteeRepository);
 const declineEvent = new DeclineEvent(inviteeRepository);
+const getAllPendingInvitees = new GetInvitees(inviteeRepository);
 
 const accountController = new AccountController(createAccount, authentication);
 const eventController = new EventController(
@@ -46,7 +50,8 @@ const eventController = new EventController(
   getEvents,
   inviteEvent,
   acceptEvent,
-  declineEvent
+  declineEvent,
+  getAllPendingInvitees
 );
 
 const routes = Router();
@@ -67,11 +72,14 @@ routes.get("/events", (req, res) => eventController.get(req, res));
 routes.post("/events/:eventId/invite", (req, res) =>
   eventController.invite(req, res)
 );
-routes.patch("/invitee/:inviteeId/accept", (req, res) =>
+routes.patch("/invitees/:inviteeId/accept", (req, res) =>
   eventController.accept(req, res)
 );
-routes.patch("/invitee/:inviteeId/decline", (req, res) =>
+routes.patch("/invitees/:inviteeId/decline", (req, res) =>
   eventController.decline(req, res)
+);
+routes.get("/invitees", (req, res) =>
+  eventController.getAllPendingInvitees(req, res)
 );
 
 app.use(routes);

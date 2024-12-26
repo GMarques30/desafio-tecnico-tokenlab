@@ -64,29 +64,4 @@ export class EventDAOMemory implements EventDAO {
       inviteeStatus: invitee.getStatus(),
     });
   }
-
-  async findByInviteeId(inviteeId: string): Promise<Invitee | undefined> {
-    const invitee = this.invitees.find(
-      (invitee) => invitee.inviteeId === inviteeId
-    );
-    if (!invitee) return undefined;
-    return Invitee.restore(
-      invitee.inviteeId,
-      invitee.eventId,
-      invitee.guestId,
-      invitee.inviteeStatus
-    );
-  }
-
-  async update(invitee: Invitee): Promise<void> {
-    const index = this.invitees.findIndex(
-      (inviteeDate) => inviteeDate.inviteeId === invitee.getInviteeId()
-    );
-    this.invitees[index] = {
-      inviteeId: invitee.getInviteeId(),
-      eventId: invitee.getEventId(),
-      guestId: invitee.getGuestId(),
-      inviteeStatus: invitee.getStatus(),
-    };
-  }
 }

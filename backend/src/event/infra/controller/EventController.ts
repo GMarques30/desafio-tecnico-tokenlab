@@ -4,6 +4,7 @@ import { CreateEvent } from "../../application/usecase/CreateEvent";
 import { DeclineEvent } from "../../application/usecase/DeclineEvent";
 import { EditEvent } from "../../application/usecase/EditEvent";
 import { GetEvents } from "../../application/usecase/GetEvents";
+import { GetInvitees } from "../../application/usecase/GetInvitees";
 import { RemoveEvent } from "../../application/usecase/RemoveEvent";
 import { InviteEvent } from "./../../application/usecase/InviteEvent";
 
@@ -15,7 +16,8 @@ export class EventController {
     private readonly getEvents: GetEvents,
     private readonly inviteEvent: InviteEvent,
     private readonly acceptEvent: AcceptEvent,
-    private readonly declineEvent: DeclineEvent
+    private readonly declineEvent: DeclineEvent,
+    private readonly getInvitees: GetInvitees
   ) {}
 
   async create(req: Request, res: Response) {
@@ -112,6 +114,20 @@ export class EventController {
         inviteeId,
         guestId,
       });
+    } catch (e: any) {
+      res.status(e.status).json({
+        message: e.message,
+      });
+    }
+  }
+
+  async getAllPendingInvitees(req: Request, res: Response) {
+    const input = {
+      guestId: req.accountId,
+    };
+    try {
+      const output = this.getInvitees.execute(input);
+      res.status(200).json(output);
     } catch (e: any) {
       res.status(e.status).json({
         message: e.message,
