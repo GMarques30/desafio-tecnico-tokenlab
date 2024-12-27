@@ -36,7 +36,7 @@ export class EventDAODatabase implements EventDAO {
       finishedAt: Date;
     }[]
   > {
-    const [eventsData] = await this.connection.query(
+    const eventsData = await this.connection.query(
       "SELECT e.event_id, e.description, e.account_id, e.started_at, e.finished_at FROM events e LEFT JOIN invitees i ON e.event_id = i.event_id WHERE e.account_id = $1 OR (i.guest_id = $1 AND i.invitee_status = 'ACCEPTED')",
       [accountId]
     );

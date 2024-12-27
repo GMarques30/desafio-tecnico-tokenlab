@@ -43,7 +43,7 @@ export class InviteeRepositoryDatabase implements InviteeRepository {
   }
 
   async findByGuestId(guestId: string): Promise<Invitee[]> {
-    const [inviteesData] = await this.connection.query(
+    const inviteesData = await this.connection.query(
       "SELECT * FROM invitees WHERE guest_id = $1",
       [guestId]
     );

@@ -95,7 +95,7 @@ export class EventController {
   }
 
   async accept(req: Request, res: Response) {
-    const { guestId } = req.body;
+    const guestId = req.accountId;
     const { inviteeId } = req.params;
     try {
       await this.acceptEvent.execute({
@@ -110,7 +110,7 @@ export class EventController {
   }
 
   async decline(req: Request, res: Response) {
-    const { guestId } = req.body;
+    const guestId = req.accountId;
     const { inviteeId } = req.params;
     try {
       await this.declineEvent.execute({
@@ -129,7 +129,7 @@ export class EventController {
       guestId: req.accountId,
     };
     try {
-      const output = this.getInvitees.execute(input);
+      const output = await this.getInvitees.execute(input);
       res.status(200).json(output);
     } catch (e: any) {
       res.status(e.status).json({
