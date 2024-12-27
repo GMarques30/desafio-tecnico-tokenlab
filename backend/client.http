@@ -82,6 +82,14 @@ Content-Type: application/json
 
 ###
 
+# @name get_events
+
+GET {{BaseUrl}}/events
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+###
+
 # @name invite
 
 POST {{BaseUrl}}/events/f431e44b-3493-406e-bede-96cbc70d589a/invite

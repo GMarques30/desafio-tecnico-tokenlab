@@ -27,6 +27,7 @@ const inviteeRepository = new InviteeRepositoryDatabase(connection);
 const eventDAO = new EventDAODatabase(connection);
 
 const authProvider = new JWTAuth();
+
 const createAccount = new CreateAccount(accountRepository);
 const authentication = new Authentication(accountRepository, authProvider);
 const createEvent = new CreateEvent(eventRepository);
