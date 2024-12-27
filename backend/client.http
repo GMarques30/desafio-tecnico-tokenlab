@@ -1,5 +1,5 @@
 @BaseUrl = http://localhost:8080
-@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiJkZTkxMjI0Ny00ZTkwLTQ5YmYtOWY4NS02OTdiM2ZlYWE1YjIiLCJpYXQiOjE3MzUzMzIwMDEsImV4cCI6MTczNTMzOTIwMX0.o_-btFR1VewUPa66GpofcYmVd-1dnStrQBAyRA60OWk
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiJhMGMwYWRkMC1hNjYwLTRmNzctYmRmNS1kMjVjMDFiNDU5MWMiLCJpYXQiOjE3MzUzMzYzOTksImV4cCI6MTczNTM0MzU5OX0.tGSRpp21i-9FLLzFi_7o4qpuL9dYwxbvGzI8t-gy5qI
 
 # @name create_account
 POST {{BaseUrl}}/signup
@@ -92,12 +92,12 @@ Content-Type: application/json
 
 # @name invite
 
-POST {{BaseUrl}}/events/f7f3448b-24a9-42c8-881a-0d323a897a48/invite
+POST {{BaseUrl}}/events/f77a52ae-a6aa-4a47-96fa-9f63c2e5ab32/invite
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
-  "guestId": "de912247-4e90-49bf-9f85-697b3feaa5b2"
+  "guestId": "a0c0add0-a660-4f77-bdf5-d25c01b4591c"
 }
 
 ###
@@ -112,7 +112,7 @@ Content-Type: application/json
 
 # @name accept_invite
 
-PATCH {{BaseUrl}}/invitees/f1a671c8-ce59-4bd3-a2a7-ce086ae73ac0/accept
+PATCH {{BaseUrl}}/invitees/92bb7616-1b4c-464d-a51a-25c6289ea46e/accept
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
