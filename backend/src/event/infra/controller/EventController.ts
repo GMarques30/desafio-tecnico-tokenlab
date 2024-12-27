@@ -102,6 +102,7 @@ export class EventController {
         inviteeId,
         guestId,
       });
+      res.status(200).json();
     } catch (e: any) {
       res.status(e.status).json({
         message: e.message,
@@ -117,6 +118,7 @@ export class EventController {
         inviteeId,
         guestId,
       });
+      res.status(200).json();
     } catch (e: any) {
       res.status(e.status).json({
         message: e.message,

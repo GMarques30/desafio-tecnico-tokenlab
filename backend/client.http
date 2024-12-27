@@ -1,5 +1,5 @@
 @BaseUrl = http://localhost:8080
-@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI4M2U0MDY4My1lYjVmLTQyNWQtOTRjOC1iMDQ2NjBlNWUxNDIiLCJpYXQiOjE3MzUyNjAwMDgsImV4cCI6MTczNTI2NzIwOH0.WNhZE0YuaJ6yhTsmS5JLHN_uqd7zs9x3rqCwe6QQiCs
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiJkZTkxMjI0Ny00ZTkwLTQ5YmYtOWY4NS02OTdiM2ZlYWE1YjIiLCJpYXQiOjE3MzUzMzIwMDEsImV4cCI6MTczNTMzOTIwMX0.o_-btFR1VewUPa66GpofcYmVd-1dnStrQBAyRA60OWk
 
 # @name create_account
 POST {{BaseUrl}}/signup
@@ -55,7 +55,7 @@ Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
-  "description": "Event 1",
+  "description": "Event 2",
   "startedAt": "2025-12-21T00:00:00",
   "finishedAt": "2025-12-22T00:00:00"
 }
@@ -63,7 +63,7 @@ Content-Type: application/json
 ###
 
 # @name edit_event
-PUT {{BaseUrl}}/events/488b283c-e1a9-46e1-9d35-3ec7ed08205d
+PUT {{BaseUrl}}/events/71b9d202-0b4b-4742-acfd-a67a08c558c8
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
@@ -76,7 +76,7 @@ Content-Type: application/json
 ###
 
 # @name remove_event
-DELETE {{BaseUrl}}/events/488b283c-e1a9-46e1-9d35-3ec7ed08205d
+DELETE {{BaseUrl}}/events/71b9d202-0b4b-4742-acfd-a67a08c558c8
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
@@ -92,12 +92,12 @@ Content-Type: application/json
 
 # @name invite
 
-POST {{BaseUrl}}/events/f431e44b-3493-406e-bede-96cbc70d589a/invite
+POST {{BaseUrl}}/events/f7f3448b-24a9-42c8-881a-0d323a897a48/invite
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
-  "guestId": "83e40683-eb5f-425d-94c8-b04660e5e142"
+  "guestId": "de912247-4e90-49bf-9f85-697b3feaa5b2"
 }
 
 ###
@@ -112,7 +112,7 @@ Content-Type: application/json
 
 # @name accept_invite
 
-PATCH {{BaseUrl}}/invitees/c514e884-735b-4e87-a513-623812dee6eb/accept
+PATCH {{BaseUrl}}/invitees/f1a671c8-ce59-4bd3-a2a7-ce086ae73ac0/accept
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 

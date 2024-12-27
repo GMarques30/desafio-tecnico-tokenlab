@@ -23,7 +23,7 @@ export class InviteeRepositoryDatabase implements InviteeRepository {
 
   async findByInviteeId(inviteeId: string): Promise<Invitee | undefined> {
     const [invitee] = await this.connection.query(
-      "SELECT * FROM invitees WHERE invitee_id = $1",
+      "SELECT * FROM invitees WHERE invitee_id = $1 AND invitee_status = 'PENDING'",
       [inviteeId]
     );
     if (!invitee) return undefined;
